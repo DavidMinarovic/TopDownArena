@@ -5,8 +5,10 @@ using System.Collections;
 public class PlayerScript : MonoBehaviour
 {
 
+    public UIvisualChanger uicooldownthing;
+
     private Rigidbody2D rb;
-    public int health = 3;
+    public int health = 5;
     public float movementspeed;
     public GameObject swordcollider;
     public GameObject fireball;
@@ -133,6 +135,8 @@ public class PlayerScript : MonoBehaviour
         {
             rb.linearVelocity = direction * fireballSpeed;
         }
+        uicooldownthing.TriggerCooldown();
+        
         StartCoroutine(fireballcooldowncoroutine());
     }
 
@@ -168,6 +172,11 @@ public class PlayerScript : MonoBehaviour
         health = health + 1;
     }
 
+
+    public void takeDamage()
+    {
+        health = health + 1;
+    }
 
 
 

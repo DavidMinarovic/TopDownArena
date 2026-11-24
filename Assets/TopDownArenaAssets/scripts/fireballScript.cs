@@ -26,7 +26,7 @@ public class fireballScript : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
+            Debug.Log("Watch your eyes!");
         }
     }
 }

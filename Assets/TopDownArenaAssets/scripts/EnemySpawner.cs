@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 
     public GameObject rangedEnemy;
     public GameObject SwordEnemy;
-    public float waitTime = 5f;
+    public float waitTime = 0.25f;
     public int randomenemy;
 
     public float minX = -8f;
@@ -46,12 +46,13 @@ public class EnemySpawner : MonoBehaviour
 
             Vector3 RandomINNERposition = new Vector3( randomX, randomY, 0f);
 
+            yield return new WaitForSeconds(1.25f);
 
             int randomboundary = Random.Range(1, 3);    
 
 
             randomenemy = Random.Range(1,3);
-            yield return new WaitForSeconds(waitTime);
+            
 
             Vector3 OutsidespawnUP = new Vector3( 0f, OutY, 0f);
             Vector3 OutsidespawnUP2 = new Vector3( 0f, OutY2, 0f);

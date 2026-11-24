@@ -6,10 +6,10 @@ public class rangedEnemy : MonoBehaviour
 {
 
     public GameObject player;
-    public int health;
+    public int enemyhealth = 2;
     private Transform playerTransform;
-    public Rigidbody2D rb;
     public GameObject projectile;
+    public bool cantakedamage;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,7 +18,7 @@ public class rangedEnemy : MonoBehaviour
         playerTransform = player.transform;
         StartCoroutine(enemyShooting());
         
-
+        cantakedamage = true;
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class rangedEnemy : MonoBehaviour
 
 
 
-        if ( health == 0 )
+        if ( enemyhealth == 0 )
         {
             Destroy(gameObject);
         }
@@ -40,13 +40,14 @@ public class rangedEnemy : MonoBehaviour
     }
 
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("voslo");
 
-        if (collision.gameObject.CompareTag("Damagable"))
+        if (collision.gameObject.CompareTag("Damagable") && cantakedamage)
         {
-            health = health - 1;    
+           enemyhealth = enemyhealth - 1;
+           StartCoroutine(damagecd());    
         }
     }
 
@@ -54,8 +55,17 @@ public class rangedEnemy : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1.5f);
             Instantiate(projectile, transform.position, transform.rotation);
         }
+    }
+
+
+
+    IEnumerator damagecd()
+    {
+        cantakedamage = false;
+        yield return new WaitForSeconds(.76f);
+        cantakedamage = true;
     }
 }
